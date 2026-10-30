@@ -1,0 +1,3 @@
+#!/bin/sh
+# Check every skill before it is committed. Install with `make hooks`.
+exec python3 scripts/check.py

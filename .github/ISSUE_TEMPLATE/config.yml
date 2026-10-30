@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Harmful skill or security issue
+    url: https://github.com/emailops/emailops-skills/security/advisories/new
+    about: Report a skill that makes the AI send, leak or hide mail privately, not as a public issue. See SECURITY.md.
+  - name: Problem with the EmailOps app or emailops-cli
+    url: https://github.com/emailops/emailops/issues
+    about: Bugs in the app itself go to the EmailOps repo.

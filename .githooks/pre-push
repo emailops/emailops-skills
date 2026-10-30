@@ -1,0 +1,7 @@
+#!/bin/sh
+# What CI checks, before it leaves this machine. Install with `make hooks`.
+set -e
+python3 scripts/check.py
+make test
+git rev-parse --verify --quiet main >/dev/null || exit 0
+exec python3 scripts/check_version.py main

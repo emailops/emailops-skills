@@ -1,0 +1,36 @@
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Check the skills
+        if: github.event_name == 'push'
+        run: python3 scripts/check.py
+      # A pull request can edit scripts/, so it is judged by the checks of the branch it targets.
+      - name: Check the skills with the target branch's checker
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: git show "origin/$BASE_REF:scripts/check.py" | python3 - .
+      - run: pip install pytest==9.1.1 && pytest -q scripts/tests
+      - name: Plugin version raised when agent skills change
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: git show "origin/$BASE_REF:scripts/check_version.py" | python3 - "origin/$BASE_REF"

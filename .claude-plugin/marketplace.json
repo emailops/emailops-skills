@@ -1,0 +1,12 @@
+{
+  "name": "emailops-skills",
+  "description": "Community skills for EmailOps, the local-first AI email client",
+  "owner": { "name": "EmailOps" },
+  "plugins": [
+    {
+      "name": "emailops",
+      "source": "./agent-skills",
+      "description": "Skills that let an agent triage and answer your EmailOps mail through emailops-cli"
+    }
+  ]
+}
